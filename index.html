@@ -5,54 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giải Pháp Chatbot AI Toàn Diện Cho Doanh Nghiệp</title>
     <meta name="description" content="Tự động hóa CSKH, tăng doanh thu và giảm chi phí với Chatbot AI thông minh.">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        primary: '#2563EB', // Blue 600
-                        secondary: '#1E40AF', // Blue 800
-                        accent: '#F59E0B', // Amber 500
-                        dark: '#0F172A', // Slate 900
+                        primary: '#2563EB',
+                        secondary: '#1E40AF',
+                        accent: '#F59E0B',
+                        dark: '#0F172A',
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Custom Utilities */
         .image-placeholder {
             background-color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-size: 0.875rem;
-            text-align: center;
-            border: 2px dashed #cbd5e1;
-            position: relative;
-            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid #cbd5e1; border-radius: 8px;
+            overflow: hidden; position: relative;
+            color: #64748b; font-size: 14px; text-align: center;
         }
         .image-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            /* Hide img if src is broken so placeholder text shows, 
-               but we use onerror inline to handle this usually. 
-               Here we assume user will fix links. */
+            width: 100%; height: 100%;
+            object-fit: cover; position: absolute;
         }
         .gradient-text {
             background: linear-gradient(to right, #2563EB, #9333ea);
@@ -61,480 +50,541 @@
         }
     </style>
 </head>
+
 <body class="font-sans text-slate-800 antialiased bg-slate-50">
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <i class="fa-solid fa-robot text-3xl text-primary mr-2"></i>
-                    <span class="font-bold text-xl tracking-tight text-slate-900">ChatbotAI<span class="text-primary">.Pro</span></span>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#loai-chatbot" class="text-slate-600 hover:text-primary font-medium transition">Sản phẩm</a>
-                    <a href="#loi-ich" class="text-slate-600 hover:text-primary font-medium transition">Lợi ích</a>
-                    <a href="#tinh-nang" class="text-slate-600 hover:text-primary font-medium transition">Tính năng</a>
-                    <a href="#giai-phap" class="text-slate-600 hover:text-primary font-medium transition">Giải pháp</a>
-                    <a href="#bang-gia" class="text-slate-600 hover:text-primary font-medium transition">Bảng giá</a>
-                </nav>
+<!-- HEADER -->
+<header class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                <i class="fa-solid fa-robot text-3xl text-primary mr-2"></i>
+                <span class="font-bold text-xl text-slate-900">ChatbotAI<span class="text-primary">.Pro</span></span>
+            </div>
 
-                <!-- CTA Button -->
-                <div class="hidden md:flex items-center">
-                    <a href="#lien-he" class="bg-primary hover:bg-secondary text-white px-5 py-2 rounded-full font-semibold transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        Dùng thử Demo
-                    </a>
-                </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#loai-chatbot" class="hover:text-primary">Sản phẩm</a>
+                <a href="#loi-ich" class="hover:text-primary">Lợi ích</a>
+                <a href="#tinh-nang" class="hover:text-primary">Tính năng</a>
+                <a href="#giai-phap" class="hover:text-primary">Giải pháp</a>
+                <a href="#bang-gia" class="hover:text-primary">Bảng giá</a>
+            </nav>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-slate-900 focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
+            <a href="#lien-he"
+               class="hidden md:flex bg-primary hover:bg-secondary text-white px-5 py-2 rounded-full font-semibold shadow-lg">
+               Dùng thử Demo
+            </a>
+
+            <button id="mobile-menu-btn" class="md:hidden text-slate-700"><i class="fa-solid fa-bars text-2xl"></i></button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+            <a href="#loai-chatbot" class="block px-3 py-2 hover:text-primary">Sản phẩm</a>
+            <a href="#loi-ich" class="block px-3 py-2 hover:text-primary">Lợi ích</a>
+            <a href="#tinh-nang" class="block px-3 py-2 hover:text-primary">Tính năng</a>
+            <a href="#giai-phap" class="block px-3 py-2 hover:text-primary">Giải pháp</a>
+            <a href="#lien-he" class="block text-center mt-4 bg-primary text-white px-5 py-3 rounded-lg">Dùng thử ngay</a>
+        </div>
+    </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="pt-32 pb-20 lg:pt-40 overflow-hidden bg-gradient-to-b from-blue-50 to-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 items-center gap-12">
+
+        <!-- Hero Text -->
+        <div class="text-center lg:text-left">
+            <div class="inline-block px-4 py-1.5 mb-6 bg-blue-100 text-primary rounded-full font-semibold">
+                🚀 Giải pháp Chatbot AI Toàn Diện
+            </div>
+
+            <h1 class="text-4xl lg:text-6xl font-extrabold mb-6">
+                Biến Website Thành <br>
+                <span class="gradient-text">Hệ Thống Bán Hàng 24/7</span>
+            </h1>
+
+            <p class="text-lg text-slate-600 mb-8">
+                Tự động tư vấn, trả lời câu hỏi, chốt đơn, đặt lịch và chăm sóc khách hàng hoàn toàn tự động.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="#lien-he" class="bg-primary text-white px-8 py-4 rounded-lg font-bold shadow-lg">
+                    <i class="fa-solid fa-bolt mr-2"></i> Gắn Demo Chatbot Ngay
+                </a>
+                <a href="#video-demo" class="bg-white border px-8 py-4 rounded-lg font-bold hover:border-primary">
+                    <i class="fa-solid fa-play mr-2"></i> Xem Video
+                </a>
             </div>
         </div>
 
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#loai-chatbot" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Sản phẩm</a>
-                <a href="#loi-ich" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Lợi ích</a>
-                <a href="#tinh-nang" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Tính năng</a>
-                <a href="#giai-phap" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-primary hover:bg-slate-50">Giải pháp</a>
-                <a href="#lien-he" class="block w-full text-center mt-4 bg-primary text-white px-5 py-3 rounded-lg font-bold">Dùng thử Demo ngay</a>
+        <!-- Hero Image -->
+        <div class="image-placeholder aspect-[4/3] rounded-2xl shadow-2xl">
+            <img loading="lazy"
+                 src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/hero-chatbot-ai.jpg"
+                 alt="Hero Chatbot">
+        </div>
+
+    </div>
+</section>
+
+<!-- PART 1: CÁC LOẠI CHATBOT -->
+<section id="loai-chatbot" class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-4">Các Loại Chatbot AI Doanh Nghiệp</h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+
+            <!-- Item 1 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-faq.jpg"
+                         alt="Chatbot FAQ">
+                </div>
+                <h3 class="font-bold text-lg mb-2">1. Chatbot Tư Vấn & FAQ</h3>
+                <p class="text-sm text-slate-600">Trả lời tự động 24/7 theo cơ sở tri thức doanh nghiệp.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-sales.jpg"
+                         alt="Chatbot Sales">
+                </div>
+                <h3 class="font-bold text-lg mb-2">2. Chatbot Bán Hàng</h3>
+                <p class="text-sm text-slate-600">Tư vấn - tạo giỏ hàng - chốt đơn tự động.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-support.jpg"
+                         alt="Chatbot Support">
+                </div>
+                <h3 class="font-bold text-lg mb-2">3. Hỗ Trợ Hậu Mãi</h3>
+                <p class="text-sm text-slate-600">Tra cứu đơn hàng, nhắc lịch, hướng dẫn bảo hành.</p>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-booking.jpg"
+                         alt="Chatbot Booking">
+                </div>
+                <h3 class="font-bold text-lg mb-2">4. Chatbot Đặt Lịch</h3>
+                <p class="text-sm text-slate-600">Đặt lịch spa, nha khoa, tài chính tự động.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- PART 1 (tiếp tục) -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- Item 5 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-consulting.jpg"
+                         alt="Chatbot Consulting">
+                </div>
+                <h3 class="font-bold text-lg mb-2">5. Tư Vấn Chuyên Ngành</h3>
+                <p class="text-sm text-slate-600">Pháp lý – tài chính – bất động sản – bảo hiểm – giáo dục.</p>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-hr.jpg"
+                         alt="Chatbot HR">
+                </div>
+                <h3 class="font-bold text-lg mb-2">6. Tuyển Dụng & HR</h3>
+                <p class="text-sm text-slate-600">Thu thập hồ sơ – trả lời chính sách – lọc ứng viên.</p>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-training.jpg"
+                         alt="Chatbot Training">
+                </div>
+                <h3 class="font-bold text-lg mb-2">7. Đào Tạo Nội Bộ</h3>
+                <p class="text-sm text-slate-600">Hướng dẫn quy trình – on-boarding – FAQ nội bộ.</p>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="p-6 border rounded-xl hover:shadow-lg transition">
+                <div class="image-placeholder aspect-video mb-4">
+                    <img loading="lazy"
+                         src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-custom.jpg"
+                         alt="Chatbot Custom">
+                </div>
+                <h3 class="font-bold text-lg mb-2">8. Cá Nhân Hóa</h3>
+                <p class="text-sm text-slate-600">Kết nối API – đồng bộ CRM – tùy chỉnh theo ngành.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PART 2: NGÀNH NGHỀ & NỀN TẢNG -->
+<section class="py-20 bg-slate-900 text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16">
+
+        <!-- Industries -->
+        <div>
+            <h2 class="text-3xl font-bold mb-6">Ngành Nghề Nên Tích Hợp</h2>
+            <ul class="space-y-4 mb-8 text-slate-200">
+                <li><i class="fa-solid fa-circle-check text-primary mr-3"></i> Website bán hàng – TMĐT</li>
+                <li><i class="fa-solid fa-circle-check text-primary mr-3"></i> Website dịch vụ: Spa – Nha khoa – Gym</li>
+                <li><i class="fa-solid fa-circle-check text-primary mr-3"></i> Bất động sản – Pháp lý – Tài chính</li>
+                <li><i class="fa-solid fa-circle-check text-primary mr-3"></i> Giáo dục – Coaching</li>
+                <li><i class="fa-solid fa-circle-check text-primary mr-3"></i> Website doanh nghiệp B2B & SaaS</li>
+            </ul>
+
+            <div class="image-placeholder aspect-[16/9] rounded-lg bg-slate-800">
+                <img loading="lazy"
+                     src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-industries.jpg"
+                     alt="Ngành Nghề">
             </div>
         </div>
-    </header>
 
-    <!-- HERO SECTION -->
-    <section class="pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-b from-blue-50 to-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Text Content -->
-                <div class="text-center lg:text-left z-10">
-                    <div class="inline-block px-4 py-1.5 mb-6 rounded-full bg-blue-100 text-primary font-semibold text-sm">
-                        🚀 Giải pháp Chatbot AI Toàn Diện
-                    </div>
-                    <h1 class="text-4xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
-                        Biến Website Thành <br>
-                        <span class="gradient-text">Hệ Thống Bán Hàng 24/7</span>
-                    </h1>
-                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-                        Tự động tư vấn, trả lời câu hỏi, chốt đơn, đặt lịch và chăm sóc khách hàng hoàn toàn tự động. 
-                        Không cần code - Tích hợp trong 5 phút.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#lien-he" class="bg-primary hover:bg-secondary text-white px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg hover:shadow-blue-500/30 flex items-center justify-center">
-                            <i class="fa-solid fa-bolt mr-2"></i> Gắn Demo Chatbot Ngay
-                        </a>
-                        <a href="#video-demo" class="bg-white border border-slate-200 hover:border-primary text-slate-700 hover:text-primary px-8 py-4 rounded-lg font-bold text-lg transition flex items-center justify-center">
-                            <i class="fa-solid fa-play mr-2"></i> Xem Video
-                        </a>
-                    </div>
-                    <div class="mt-8 flex items-center justify-center lg:justify-start space-x-6 text-sm text-slate-500 font-medium">
-                        <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Không cần code</span>
-                        <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Vận hành 24/7</span>
-                        <span class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Bảo mật dữ liệu</span>
-                    </div>
-                </div>
-                
-                <!-- Hero Image -->
-                <div class="relative z-10">
-                    <div class="absolute -top-10 -right-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-                    <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-                    
-                    <div class="image-placeholder aspect-[4/3] rounded-2xl shadow-2xl bg-white transform rotate-1 hover:rotate-0 transition duration-500">
-                        <!-- Ảnh thật sẽ hiển thị khi có file, nếu lỗi sẽ hiện placeholder -->
-                        <img src="/images/hero-chatbot-ai.png" alt="Chatbot AI Hero Interface" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'p-8 text-center\'><i class=\'fa-solid fa-robot text-6xl text-slate-300 mb-4\'></i><br>Ảnh minh họa Hero Section<br><span class=\'text-xs font-mono bg-slate-100 px-2 py-1 rounded mt-2 inline-block\'>/images/hero-chatbot-ai.png</span></div>'">
-                    </div>
-                </div>
+        <!-- Platforms -->
+        <div>
+            <h2 class="text-3xl font-bold mb-6">Tích Hợp Đa Nền Tảng</h2>
+            <p class="text-slate-300 mb-8">Khả năng tích hợp nhanh vào mọi hệ thống hiện tại.</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+                <div class="bg-slate-800 p-4 rounded text-center">WordPress</div>
+                <div class="bg-slate-800 p-4 rounded text-center">Shopify</div>
+                <div class="bg-slate-800 p-4 rounded text-center">Webflow</div>
+                <div class="bg-slate-800 p-4 rounded text-center">Wix</div>
+                <div class="bg-slate-800 p-4 rounded text-center">Landing Page</div>
+                <div class="bg-slate-800 p-4 rounded text-center">Custom App</div>
+            </div>
+
+            <div class="image-placeholder aspect-[16/9] rounded-lg bg-slate-800">
+                <img loading="lazy"
+                     src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-platforms.jpg"
+                     alt="Platforms">
             </div>
         </div>
-    </section>
 
-    <!-- PART 1: CÁC LOẠI CHATBOT -->
-    <section id="loai-chatbot" class="py-20 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Các Loại Chatbot AI Doanh Nghiệp Có Thể Tích Hợp</h2>
-                <p class="text-slate-600">Chúng tôi cung cấp giải pháp tùy biến cho từng nhu cầu cụ thể của bạn.</p>
-            </div>
+    </div>
+</section>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Item 1 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                         <img src="/images/chatbot-faq.png" alt="Chatbot FAQ" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot FAQ<br>/images/chatbot-faq.png</div>'">
+<!-- PART 3: LỢI ÍCH -->
+<section id="loi-ich" class="py-20 bg-blue-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Benefits Image -->
+        <div class="image-placeholder aspect-square bg-white rounded-2xl shadow-xl">
+            <img loading="lazy"
+                 src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-benefits.jpg"
+                 alt="Lợi ích Chatbot">
+        </div>
+
+        <!-- Benefits Text -->
+        <div>
+            <h2 class="text-3xl font-bold mb-8">Lợi Ích Tuyệt Vời Khi Sở Hữu Chatbot AI</h2>
+
+            <div class="space-y-6">
+
+                <div class="flex">
+                    <div class="w-12 h-12 bg-blue-100 text-primary text-xl font-bold rounded-full flex items-center justify-center mr-4">
+                        1
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">1. Chatbot Tư Vấn & FAQ</h3>
-                    <p class="text-sm text-slate-600">Trả lời tự động 24/7 theo kho tài liệu, chính sách của doanh nghiệp.</p>
-                </div>
-                <!-- Item 2 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-sales.png" alt="Chatbot Sales" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot Sales<br>/images/chatbot-sales.png</div>'">
+                    <div>
+                        <h4 class="font-bold text-lg">Tiết kiệm 60–80% chi phí CSKH</h4>
+                        <p class="text-slate-600">Chatbot vận hành 24/7, không cần nhân viên trực.</p>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">2. Chatbot Bán Hàng</h3>
-                    <p class="text-sm text-slate-600">Gợi ý sản phẩm, tạo giỏ hàng, tư vấn combo và upsell tự động.</p>
                 </div>
-                <!-- Item 3 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-support.png" alt="Chatbot Support" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot Support<br>/images/chatbot-support.png</div>'">
+
+                <div class="flex">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 text-xl font-bold rounded-full flex items-center justify-center mr-4">
+                        2
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">3. Hỗ Trợ Hậu Mãi</h3>
-                    <p class="text-sm text-slate-600">Tra cứu đơn hàng, nhắc lịch, hướng dẫn bảo hành tự động.</p>
-                </div>
-                <!-- Item 4 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-booking.png" alt="Chatbot Booking" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot Booking<br>/images/chatbot-booking.png</div>'">
+                    <div>
+                        <h4 class="font-bold text-lg">Tăng tỉ lệ chuyển đổi & doanh thu</h4>
+                        <p class="text-slate-600">Tư vấn cá nhân hóa, upsell thông minh.</p>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">4. Chatbot Đặt Lịch</h3>
-                    <p class="text-sm text-slate-600">Tự động đặt lịch spa, nha khoa, khám bệnh, tư vấn tài chính.</p>
                 </div>
-                <!-- Item 5 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-consulting.png" alt="Chatbot Consulting" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot Consulting<br>/images/chatbot-consulting.png</div>'">
+
+                <div class="flex">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 text-xl font-bold rounded-full flex items-center justify-center mr-4">
+                        3
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">5. Tư Vấn Chuyên Ngành</h3>
-                    <p class="text-sm text-slate-600">Pháp lý, tài chính, bất động sản, bảo hiểm, giáo dục.</p>
-                </div>
-                <!-- Item 6 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-hr.png" alt="Chatbot HR" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot HR<br>/images/chatbot-hr.png</div>'">
+                    <div>
+                        <h4 class="font-bold text-lg">Trải nghiệm khách hàng mượt mà</h4>
+                        <p class="text-slate-600">Phản hồi tức thì – không để khách chờ.</p>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">6. Tuyển Dụng & HR</h3>
-                    <p class="text-sm text-slate-600">Thu thập hồ sơ, trả lời chính sách, đánh giá sơ bộ ứng viên.</p>
                 </div>
-                <!-- Item 7 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-training.png" alt="Chatbot Training" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot Training<br>/images/chatbot-training.png</div>'">
+
+                <div class="flex">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 text-xl font-bold rounded-full flex items-center justify-center mr-4">
+                        4
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">7. Đào Tạo Nội Bộ</h3>
-                    <p class="text-sm text-slate-600">Huấn luyện nhân viên mới, hướng dẫn quy trình, FAQ nội bộ.</p>
-                </div>
-                <!-- Item 8 -->
-                <div class="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition border border-slate-100">
-                    <div class="image-placeholder aspect-video rounded-lg mb-4 bg-white">
-                        <img src="/images/chatbot-custom.png" alt="Chatbot Custom" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-xs text-center p-4\'>Ảnh: Chatbot Custom<br>/images/chatbot-custom.png</div>'">
+                    <div>
+                        <h4 class="font-bold text-lg">Huấn luyện theo dữ liệu riêng</h4>
+                        <p class="text-slate-600">Bảo mật tuyệt đối – không lẫn dữ liệu ngoài.</p>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">8. Cá Nhân Hóa</h3>
-                    <p class="text-sm text-slate-600">Kết nối API, đọc dữ liệu CRM, tùy chỉnh sâu theo ngành.</p>
                 </div>
+
             </div>
         </div>
-    </section>
 
-    <!-- PART 2: NGÀNH NGHỀ & PART 3: NỀN TẢNG (Combined for Flow) -->
-    <section class="py-20 bg-slate-900 text-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-16">
-                <!-- Industries -->
-                <div>
-                    <h2 class="text-3xl font-bold mb-6">Website & Ngành Nghề Nên Tích Hợp</h2>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start"><i class="fa-solid fa-circle-check text-primary mt-1 mr-3"></i> Website bán hàng – Thương mại điện tử</li>
-                        <li class="flex items-start"><i class="fa-solid fa-circle-check text-primary mt-1 mr-3"></i> Website dịch vụ (Spa, Nha khoa, Gym, Logistics…)</li>
-                        <li class="flex items-start"><i class="fa-solid fa-circle-check text-primary mt-1 mr-3"></i> Bất động sản – Pháp lý – Tài chính – Bảo hiểm</li>
-                        <li class="flex items-start"><i class="fa-solid fa-circle-check text-primary mt-1 mr-3"></i> Trung tâm giáo dục, đào tạo, coaching</li>
-                        <li class="flex items-start"><i class="fa-solid fa-circle-check text-primary mt-1 mr-3"></i> Website doanh nghiệp B2B & SaaS</li>
+    </div>
+</section>
+
+<!-- PART 4: TÍNH NĂNG -->
+<section id="tinh-nang" class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+        <h2 class="text-3xl font-bold text-center mb-4">Tính Năng Công Nghệ Vượt Trội</h2>
+        <p class="text-slate-600 text-center max-w-xl mx-auto mb-12">
+            Sức mạnh AI hiện đại – dễ triển khai – tối ưu hiệu quả kinh doanh.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+
+            <div class="p-6 border rounded-xl hover:border-primary transition text-center">
+                <i class="fa-solid fa-brain text-4xl text-primary mb-4"></i>
+                <h3 class="font-bold text-lg">Hiểu ngôn ngữ tự nhiên</h3>
+            </div>
+
+            <div class="p-6 border rounded-xl hover:border-primary transition text-center">
+                <i class="fa-solid fa-cart-shopping text-4xl text-green-500 mb-4"></i>
+                <h3 class="font-bold text-lg">Tư vấn & Chốt đơn</h3>
+            </div>
+
+            <div class="p-6 border rounded-xl hover:border-primary transition text-center">
+                <i class="fa-solid fa-microphone text-4xl text-purple-500 mb-4"></i>
+                <h3 class="font-bold text-lg">Hỗ trợ giọng nói</h3>
+            </div>
+
+            <div class="p-6 border rounded-xl hover:border-primary transition text-center">
+                <i class="fa-solid fa-plug text-4xl text-amber-500 mb-4"></i>
+                <h3 class="font-bold text-lg">Kết nối API & CRM</h3>
+            </div>
+
+            <div class="p-6 border rounded-xl hover:border-primary transition text-center">
+                <i class="fa-solid fa-memory text-4xl text-red-500 mb-4"></i>
+                <h3 class="font-bold text-lg">Memory AI</h3>
+            </div>
+
+            <div class="p-6 border rounded-xl hover:border-primary transition text-center">
+                <i class="fa-solid fa-chart-pie text-4xl text-blue-400 mb-4"></i>
+                <h3 class="font-bold text-lg">Báo cáo Realtime</h3>
+            </div>
+
+        </div>
+
+        <div class="image-placeholder aspect-[2/1] rounded-xl shadow-lg max-w-4xl mx-auto">
+            <img loading="lazy"
+                 src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-features.jpg"
+                 alt="Feature Dashboard">
+        </div>
+
+    </div>
+</section>
+
+<!-- PART 5: GIẢI PHÁP THEO LOẠI HÌNH  -->
+<section id="giai-phap" class="py-20 bg-slate-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+        <h2 class="text-3xl font-bold text-center mb-12">Giải Pháp Cho Mọi Mô Hình Kinh Doanh</h2>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+
+            <div class="space-y-6">
+
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
+                    <h3 class="font-bold text-xl mb-2">🛍️ Doanh Nghiệp Bán Hàng</h3>
+                    <ul class="ml-4 list-disc text-slate-600">
+                        <li>Chốt đơn tự động</li>
+                        <li>Tư vấn combo</li>
+                        <li>Tra cứu vận đơn</li>
                     </ul>
-                    <div class="image-placeholder aspect-[16/9] rounded-lg bg-slate-800 border-slate-700">
-                        <img src="/images/chatbot-industries.png" alt="Industries" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-center p-4 text-slate-400\'>Ảnh minh họa các ngành nghề<br>/images/chatbot-industries.png</div>'">
-                    </div>
                 </div>
 
-                <!-- Platforms -->
-                <div>
-                    <h2 class="text-3xl font-bold mb-6">Tích Hợp Đa Nền Tảng</h2>
-                    <p class="text-slate-300 mb-8">Chúng tôi hỗ trợ tích hợp Chatbot vào mọi loại website và hệ thống quản trị của bạn.</p>
-                    
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-                        <div class="bg-slate-800 p-4 rounded text-center font-semibold hover:bg-slate-700 transition">WordPress</div>
-                        <div class="bg-slate-800 p-4 rounded text-center font-semibold hover:bg-slate-700 transition">Shopify</div>
-                        <div class="bg-slate-800 p-4 rounded text-center font-semibold hover:bg-slate-700 transition">Webflow</div>
-                        <div class="bg-slate-800 p-4 rounded text-center font-semibold hover:bg-slate-700 transition">Wix</div>
-                        <div class="bg-slate-800 p-4 rounded text-center font-semibold hover:bg-slate-700 transition">Landing Page</div>
-                        <div class="bg-slate-800 p-4 rounded text-center font-semibold hover:bg-slate-700 transition">Custom App</div>
-                    </div>
-
-                    <div class="image-placeholder aspect-[16/9] rounded-lg bg-slate-800 border-slate-700">
-                        <img src="/images/chatbot-platforms.png" alt="Platforms" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'text-center p-4 text-slate-400\'>Ảnh minh họa các nền tảng<br>/images/chatbot-platforms.png</div>'">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PART 4: LỢI ÍCH -->
-    <section id="loi-ich" class="py-20 bg-blue-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row gap-12 items-center">
-                <div class="lg:w-1/2 order-2 lg:order-1">
-                    <div class="image-placeholder aspect-square rounded-2xl shadow-xl bg-white">
-                        <img src="/images/chatbot-benefits.png" alt="Benefits" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'p-8 text-center text-slate-400\'><i class=\'fa-solid fa-chart-line text-6xl mb-4\'></i><br>Ảnh minh họa lợi ích<br>/images/chatbot-benefits.png</div>'">
-                    </div>
-                </div>
-                <div class="lg:w-1/2 order-1 lg:order-2">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-8">Lợi Ích Tuyệt Vời Khi Sở Hữu Chatbot AI</h2>
-                    <div class="space-y-6">
-                        <div class="flex">
-                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-primary text-xl font-bold mr-4">1</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-800">Tiết kiệm 60–80% chi phí CSKH</h4>
-                                <p class="text-slate-600">Không cần đội ngũ trực tin nhắn đông đảo, chatbot làm thay 24/7 không mệt mỏi.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 text-xl font-bold mr-4">2</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-800">Tăng tỉ lệ chuyển đổi & doanh thu</h4>
-                                <p class="text-slate-600">Chủ động tư vấn, gợi ý đúng nhu cầu và upsell ngay khi khách hàng quan tâm.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xl font-bold mr-4">3</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-800">Trải nghiệm khách hàng vượt trội</h4>
-                                <p class="text-slate-600">Phản hồi ngay lập tức (0 giây), chính xác, khách hàng không phải chờ đợi.</p>
-                            </div>
-                        </div>
-                        <div class="flex">
-                            <div class="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 text-xl font-bold mr-4">4</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-slate-800">Huấn luyện từ dữ liệu riêng</h4>
-                                <p class="text-slate-600">Chatbot học từ tài liệu của bạn. Bảo mật tuyệt đối, không lẫn với dữ liệu ngoài.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PART 5: TÍNH NĂNG NỔI BẬT -->
-    <section id="tinh-nang" class="py-20 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Tính Năng Công Nghệ Vượt Trội</h2>
-                <p class="text-slate-600">Sức mạnh của LLM và AI hiện đại tích hợp trong một giải pháp đơn giản.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="p-6 border rounded-xl hover:border-primary transition group">
-                    <i class="fa-solid fa-brain text-4xl text-primary mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="font-bold text-lg mb-2">Hiểu ngôn ngữ tự nhiên (LLM)</h3>
-                    <p class="text-sm text-slate-600">Không trả lời rập khuôn. AI hiểu ngữ cảnh và ý định của khách hàng.</p>
-                </div>
-                <div class="p-6 border rounded-xl hover:border-primary transition group">
-                    <i class="fa-solid fa-cart-shopping text-4xl text-green-500 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="font-bold text-lg mb-2">Tư vấn & Chốt đơn</h3>
-                    <p class="text-sm text-slate-600">Hoạt động như một nhân viên sales thực thụ, dẫn dắt khách hàng mua hàng.</p>
-                </div>
-                <div class="p-6 border rounded-xl hover:border-primary transition group">
-                    <i class="fa-solid fa-microphone text-4xl text-purple-500 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="font-bold text-lg mb-2">Hỗ trợ giọng nói</h3>
-                    <p class="text-sm text-slate-600">Tương tác bằng giọng nói hai chiều (Voice-to-Voice) hiện đại.</p>
-                </div>
-                <div class="p-6 border rounded-xl hover:border-primary transition group">
-                    <i class="fa-solid fa-plug text-4xl text-amber-500 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="font-bold text-lg mb-2">Kết nối API & CRM</h3>
-                    <p class="text-sm text-slate-600">Đồng bộ dữ liệu khách hàng, đơn hàng về hệ thống quản trị của bạn.</p>
-                </div>
-                <div class="p-6 border rounded-xl hover:border-primary transition group">
-                    <i class="fa-solid fa-memory text-4xl text-red-500 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="font-bold text-lg mb-2">Memory AI</h3>
-                    <p class="text-sm text-slate-600">Ghi nhớ lịch sử chat và thói quen khách hàng để cá nhân hóa.</p>
-                </div>
-                <div class="p-6 border rounded-xl hover:border-primary transition group">
-                    <i class="fa-solid fa-chart-pie text-4xl text-blue-400 mb-4 group-hover:scale-110 transition"></i>
-                    <h3 class="font-bold text-lg mb-2">Báo cáo Realtime</h3>
-                    <p class="text-sm text-slate-600">Dashboard trực quan theo dõi hiệu suất, tin nhắn và tỉ lệ chuyển đổi.</p>
-                </div>
-            </div>
-
-            <div class="max-w-4xl mx-auto">
-                <div class="image-placeholder aspect-[2/1] rounded-xl shadow-lg">
-                    <img src="/images/chatbot-features.png" alt="Feature Dashboard" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'p-8 text-center text-slate-400\'><i class=\'fa-solid fa-laptop-code text-6xl mb-4\'></i><br>Ảnh minh họa Dashboard tính năng<br>/images/chatbot-features.png</div>'">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PART 6: GIẢI PHÁP THEO LOẠI HÌNH (Tabs) -->
-    <section id="giai-phap" class="py-20 bg-slate-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12">Giải Pháp Cho Mọi Mô Hình Kinh Doanh</h2>
-            
-            <div class="grid lg:grid-cols-2 gap-10">
-                <div class="space-y-6">
-                    <!-- Box 1 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
-                        <h3 class="font-bold text-xl mb-2 text-slate-800">🛍️ Doanh Nghiệp Bán Hàng</h3>
-                        <ul class="text-slate-600 space-y-1 ml-4 list-disc">
-                            <li>Chốt đơn tự động & Tạo giỏ hàng</li>
-                            <li>Tư vấn combo sản phẩm</li>
-                            <li>Tra cứu tình trạng vận đơn</li>
-                        </ul>
-                    </div>
-                    <!-- Box 2 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
-                        <h3 class="font-bold text-xl mb-2 text-slate-800">🏨 Dịch Vụ & Booking</h3>
-                        <ul class="text-slate-600 space-y-1 ml-4 list-disc">
-                            <li>Đặt lịch hẹn tự động (Spa, Nha khoa...)</li>
-                            <li>Tư vấn quy trình dịch vụ</li>
-                            <li>Nhắc lịch hẹn để giảm tỷ lệ hủy</li>
-                        </ul>
-                    </div>
-                    <!-- Box 3 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
-                        <h3 class="font-bold text-xl mb-2 text-slate-800">🎓 Giáo Dục & Đào Tạo</h3>
-                        <ul class="text-slate-600 space-y-1 ml-4 list-disc">
-                            <li>Tư vấn lộ trình khóa học</li>
-                            <li>Hỗ trợ học viên làm bài test/quiz</li>
-                            <li>Giải đáp thắc mắc bài tập 24/7</li>
-                        </ul>
-                    </div>
-                    <!-- Box 4 -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
-                        <h3 class="font-bold text-xl mb-2 text-slate-800">🏢 B2B & Doanh Nghiệp</h3>
-                        <ul class="text-slate-600 space-y-1 ml-4 list-disc">
-                            <li>Tư vấn báo giá sơ bộ</li>
-                            <li>Thu thập Lead (Lead Generation)</li>
-                            <li>Giải thích hồ sơ năng lực</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="flex items-center">
-                    <div class="image-placeholder aspect-square w-full rounded-2xl shadow-xl bg-white">
-                         <img src="/images/chatbot-for-business.png" alt="Solutions for Business" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'p-8 text-center text-slate-400\'><i class=\'fa-solid fa-briefcase text-6xl mb-4\'></i><br>Ảnh minh họa giải pháp doanh nghiệp<br>/images/chatbot-for-business.png</div>'">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PART 7: BẢNG GIÁ (Mockup based on content hint) -->
-    <section id="bang-gia" class="py-20 bg-white">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Các Gói Tích Hợp Chatbot AI</h2>
-                <p class="text-slate-600">Lựa chọn gói phù hợp với quy mô doanh nghiệp của bạn.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Free / Starter -->
-                <div class="border border-slate-200 rounded-2xl p-8 hover:shadow-xl transition relative">
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Cơ Bản</h3>
-                    <p class="text-slate-500 text-sm mb-6">Dành cho cá nhân & shop nhỏ</p>
-                    <div class="text-4xl font-bold text-slate-900 mb-6">Miễn phí<span class="text-base font-normal text-slate-500">/thử nghiệm</span></div>
-                    <ul class="space-y-3 mb-8 text-slate-600">
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 1 Chatbot</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> 50 tin nhắn/tháng</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Huấn luyện cơ bản</li>
-                        <li class="flex items-center text-slate-400"><i class="fa-solid fa-minus mr-2"></i> Không API</li>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
+                    <h3 class="font-bold text-xl mb-2">🏨 Dịch Vụ & Booking</h3>
+                    <ul class="ml-4 list-disc text-slate-600">
+                        <li>Đặt lịch tự động</li>
+                        <li>Tư vấn quy trình</li>
+                        <li>Nhắc lịch hẹn</li>
                     </ul>
-                    <a href="#lien-he" class="block w-full text-center py-3 px-4 border border-primary text-primary font-bold rounded-lg hover:bg-blue-50 transition">Đăng ký ngay</a>
                 </div>
 
-                <!-- Gold / Pro -->
-                <div class="border-2 border-primary rounded-2xl p-8 shadow-xl relative transform md:-translate-y-4 bg-white">
-                    <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">PHỔ BIẾN NHẤT</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Chuyên Nghiệp</h3>
-                    <p class="text-slate-500 text-sm mb-6">Dành cho doanh nghiệp SME</p>
-                    <div class="text-4xl font-bold text-slate-900 mb-6">Liên hệ<span class="text-base font-normal text-slate-500">/tháng</span></div>
-                    <ul class="space-y-3 mb-8 text-slate-600">
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Chatbot không giới hạn</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Huấn luyện dữ liệu riêng</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Tích hợp Website/FB</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Báo cáo nâng cao</li>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
+                    <h3 class="font-bold text-xl mb-2">🎓 Giáo Dục & Đào Tạo</h3>
+                    <ul class="ml-4 list-disc text-slate-600">
+                        <li>Tư vấn khóa học</li>
+                        <li>Hỗ trợ bài test</li>
+                        <li>Giải đáp 24/7</li>
                     </ul>
-                    <a href="#lien-he" class="block w-full text-center py-3 px-4 bg-primary text-white font-bold rounded-lg hover:bg-blue-700 transition">Nhận báo giá</a>
                 </div>
 
-                <!-- Enterprise -->
-                <div class="border border-slate-200 rounded-2xl p-8 hover:shadow-xl transition">
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Doanh Nghiệp</h3>
-                    <p class="text-slate-500 text-sm mb-6">Dành cho tập đoàn lớn</p>
-                    <div class="text-4xl font-bold text-slate-900 mb-6">Tùy chỉnh</div>
-                    <ul class="space-y-3 mb-8 text-slate-600">
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Triển khai Server riêng</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Custom API & CRM</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Hỗ trợ kỹ thuật 24/7</li>
-                        <li class="flex items-center"><i class="fa-solid fa-check text-green-500 mr-2"></i> Đội ngũ setup riêng</li>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-amber-500">
+                    <h3 class="font-bold text-xl mb-2">🏢 B2B & Doanh Nghiệp</h3>
+                    <ul class="ml-4 list-disc text-slate-600">
+                        <li>Thu thập lead</li>
+                        <li>Tư vấn báo giá</li>
+                        <li>Giới thiệu năng lực</li>
                     </ul>
-                    <a href="#lien-he" class="block w-full text-center py-3 px-4 border border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition">Liên hệ tư vấn</a>
                 </div>
+
             </div>
-        </div>
-    </section>
 
-    <!-- PART 8: CTA & FOOTER -->
-    <section id="lien-he" class="py-20 bg-slate-900 text-white relative overflow-hidden">
-        <!-- Background elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-             <div class="absolute w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 -top-20 -left-20"></div>
-             <div class="absolute w-96 h-96 bg-purple-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 bottom-0 right-0"></div>
+            <div class="image-placeholder aspect-square rounded-2xl shadow-xl bg-white">
+                <img loading="lazy"
+                     src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-for-business.jpg"
+                     alt="Solutions for Business">
+            </div>
+
         </div>
 
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <h2 class="text-4xl font-bold mb-6">Sẵn Sàng Để Website Của Bạn Hoạt Động 24/7?</h2>
-                    <p class="text-xl text-slate-300 mb-8">
-                        Tăng doanh thu – Giảm chi phí – Tự động hóa vận hành với Chatbot AI thông minh ngay hôm nay.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="bg-primary hover:bg-blue-500 text-white px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg transform hover:-translate-y-1">
-                            Đăng Ký Tư Vấn Miễn Phí
-                        </button>
-                        <button class="bg-transparent border border-white hover:bg-white hover:text-slate-900 text-white px-8 py-4 rounded-lg font-bold text-lg transition">
-                            Dùng Thử Demo Trực Tiếp
-                        </button>
-                    </div>
+    </div>
+</section>
+<!-- PART 6: BẢNG GIÁ -->
+<section id="bang-gia" class="py-20 bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Các Gói Tích Hợp Chatbot AI</h2>
+            <p class="text-slate-600">Lựa chọn gói phù hợp với quy mô doanh nghiệp của bạn.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+            <!-- Free -->
+            <div class="border border-slate-200 rounded-2xl p-8 hover:shadow-xl transition">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Cơ Bản</h3>
+                <p class="text-slate-500 text-sm mb-6">Dành cho cá nhân & shop nhỏ</p>
+                <div class="text-4xl font-bold text-slate-900 mb-6">Miễn phí<span class="text-base text-slate-500">/thử</span></div>
+                <ul class="space-y-3 mb-8 text-slate-600">
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 1 Chatbot</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 50 tin nhắn/tháng</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Huấn luyện cơ bản</li>
+                    <li class="text-slate-400"><i class="fa-solid fa-minus mr-2"></i> Không API</li>
+                </ul>
+                <a href="#lien-he"
+                   class="block w-full text-center py-3 border border-primary text-primary font-bold rounded-lg hover:bg-blue-50 transition">
+                   Đăng ký ngay
+                </a>
+            </div>
+
+            <!-- Pro -->
+            <div class="border-2 border-primary rounded-2xl p-8 shadow-xl relative bg-white transform md:-translate-y-4">
+                <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                    PHỔ BIẾN NHẤT
                 </div>
-                <div class="lg:w-1/2">
-                    <div class="image-placeholder aspect-[4/3] rounded-xl bg-slate-800 border-slate-600">
-                        <img src="/images/chatbot-cta.png" alt="Call to Action" onerror="this.style.display='none'; this.parentElement.innerHTML+='<div class=\'p-8 text-center text-slate-400\'><i class=\'fa-solid fa-rocket text-6xl mb-4\'></i><br>Ảnh minh họa CTA<br>/images/chatbot-cta.png</div>'">
-                    </div>
-                </div>
+                <h3 class="text-xl font-bold mb-2">Chuyên Nghiệp</h3>
+                <p class="text-slate-500 text-sm mb-6">Dành cho doanh nghiệp SME</p>
+                <div class="text-4xl font-bold text-slate-900 mb-6">Liên hệ<span class="text-base text-slate-500">/tháng</span></div>
+                <ul class="space-y-3 mb-8 text-slate-600">
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Chatbot không giới hạn</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Huấn luyện dữ liệu riêng</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Tích hợp Website/FB</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Báo cáo nâng cao</li>
+                </ul>
+                <a href="#lien-he"
+                   class="block w-full text-center py-3 bg-primary text-white font-bold rounded-lg hover:bg-blue-700 transition">
+                   Nhận báo giá
+                </a>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="border border-slate-200 rounded-2xl p-8 hover:shadow-xl transition">
+                <h3 class="text-xl font-bold mb-2">Doanh Nghiệp</h3>
+                <p class="text-slate-500 text-sm mb-6">Dành cho tập đoàn lớn</p>
+                <div class="text-4xl font-bold text-slate-900 mb-6">Tùy chỉnh</div>
+                <ul class="space-y-3 mb-8 text-slate-600">
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Server riêng</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Custom API & CRM</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Hỗ trợ kỹ thuật 24/7</li>
+                    <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Đội ngũ setup riêng</li>
+                </ul>
+                <a href="#lien-he"
+                   class="block w-full text-center py-3 border border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition">
+                   Liên hệ
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PART 7: CTA -->
+<section id="lien-he" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div class="absolute w-96 h-96 bg-blue-600 mix-blend-screen blur-3xl opacity-20 -top-20 -left-20"></div>
+        <div class="absolute w-96 h-96 bg-purple-600 mix-blend-screen blur-3xl opacity-20 bottom-0 right-0"></div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center gap-12">
+
+        <div class="lg:w-1/2">
+            <h2 class="text-4xl font-bold mb-6">Sẵn Sàng Để Website Hoạt Động 24/7?</h2>
+            <p class="text-xl text-slate-300 mb-8">
+                Tăng doanh thu – Giảm chi phí – Tự động hóa vận hành với Chatbot AI thông minh.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button class="bg-primary hover:bg-blue-500 text-white px-8 py-4 rounded-lg font-bold shadow-lg">
+                    Đăng Ký Tư Vấn
+                </button>
+                <button class="border border-white hover:bg-white hover:text-slate-900 text-white px-8 py-4 rounded-lg font-bold">
+                    Dùng Thử Demo
+                </button>
             </div>
         </div>
-    </section>
 
-    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-4">
-                <i class="fa-solid fa-robot text-2xl text-primary mb-2"></i>
-                <span class="block font-bold text-white text-lg">ChatbotAI.Pro</span>
+        <div class="lg:w-1/2">
+            <div class="image-placeholder aspect-[4/3] rounded-xl bg-slate-800">
+                <img loading="lazy"
+                     src="https://cdn.jsdelivr.net/gh/luonganhvietbds/landingpageAgentAIChatbot/images/chatbot-cta.jpg"
+                     alt="CTA Image">
             </div>
-            <p class="mb-8 text-sm">Giải pháp AI Chatbot hàng đầu cho doanh nghiệp Việt.</p>
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook text-xl"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-youtube text-xl"></i></a>
-                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
-            </div>
-            <p class="text-xs">&copy; 2024 ChatbotAI Solutions. All rights reserved.</p>
         </div>
-    </footer>
 
-    <!-- Script for Mobile Menu -->
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
+    </div>
+</section>
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-    </script>
+<!-- FOOTER -->
+<footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+    <div class="container mx-auto px-4 text-center">
+        <i class="fa-solid fa-robot text-2xl text-primary mb-2"></i>
+        <span class="block font-bold text-white text-lg">ChatbotAI.Pro</span>
+
+        <p class="mt-3 mb-8 text-sm">Giải pháp AI Chatbot hàng đầu cho doanh nghiệp Việt.</p>
+
+        <div class="flex justify-center space-x-6 mb-8">
+            <a href="#" class="hover:text-white"><i class="fa-brands fa-facebook text-xl"></i></a>
+            <a href="#" class="hover:text-white"><i class="fa-brands fa-youtube text-xl"></i></a>
+            <a href="#" class="hover:text-white"><i class="fa-brands fa-linkedin text-xl"></i></a>
+        </div>
+
+        <p class="text-xs">&copy; 2024 ChatbotAI Solutions. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- JS: Mobile Menu -->
+<script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+</script>
+
 </body>
 </html>
